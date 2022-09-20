@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from pandas import plotting
 from statsmodels.formula.api import ols
 import seaborn
+from tableone import TableOne, load_dataset
 
 ####Using API link instead to reduce file size error
 
@@ -52,4 +53,34 @@ ax.hist(df['length_of_stay'], bin_edges, cumulative=False)
 ax.set_xlabel('Length_of_stay')
 ax.set_ylabel('Frequency')
 plt.show()
+
+
+###Tableone
+
+df_2 = df.copy()
+
+df_2.dtypes
+
+df_2.columns
+
+
+
+df_2_columns = [['hospital_county', 'age_group', 'gender', 'race','type_of_admission','length_of_stay']]
+
+df_2_columns
+
+
+df_2_cat = [['age_group', 'gender']]
+
+df_2_cat
+
+
+df_2_group = ['gender']
+
+df_2_group
+
+
+df_2_sparcsdata = TableOne(df_2, columns=df_2_columns, categorical=df_2_cat, groupby=df_2_group, pval=False)
+print(df_2_sparcsdata.tabulate(tablefmt="fancy_grid"))
+df_2_sparcsdata.to_csv('SPARCS_2')
 
